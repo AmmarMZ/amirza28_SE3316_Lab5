@@ -1,0 +1,9 @@
+{
+    "/api/*":
+    {
+        "target" : "https://lab5-ammarmz.c9users.io:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "info"
+    }
+}
