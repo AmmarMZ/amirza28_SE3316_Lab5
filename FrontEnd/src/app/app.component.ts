@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +10,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent 
 {
-  title = 'Angular Lab 5 - Ammar Mirza - 250846071';
+  loginAuth = true;
+  public aboutHide = false;
+   constructor(public afAuth: AngularFireAuth) {}
+   showLoginAuth()
+   {
+     this.loginAuth = false;
+     this.aboutHide = true;
+   }
 }

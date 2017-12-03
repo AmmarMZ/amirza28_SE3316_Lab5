@@ -1,0 +1,23 @@
+div .display
+{
+    display: flex;
+    column-count: 5;
+    max-height: 500px
+}
+
+div img
+{
+    max-height: 200px;
+    max-width: 200px;
+    padding: 5px;
+}
+
+.display button
+{
+    max-height: 40px;
+    max-width: 100px;
+}
+
+.modal {
+  background: rgba(0,0,0,0.6);
+}

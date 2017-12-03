@@ -7,7 +7,7 @@ export class SampleService {
   constructor(private http : HttpClient) { }
   
   getData(callback_fun) 
-  {
+  { 
       this.http.get('/api').subscribe(data =>
       {
         console.log(data);

@@ -1,9 +1,7 @@
 
-<div  *ngIf="afAuth.authState | async; let user; else showLogin">
-    <div  style="text-align:right" class="navbar">
-          <button (click) = "logout()">Logout</button>
-    </div>
-    
+<div routerLink ='/homeScreen' *ngIf="afAuth.authState | async; let user; else showLogin">
+    <button (click) = "routeToHS()">Go back to home screen</button>
+     <button (click) = "logout()">Logout?</button>
 </div>
     <ng-template #showLogin style="text-align:center">
         <h1>Welcome to {{ title }}</h1>
@@ -16,6 +14,6 @@
     </form>
       <p>Please login or Register.</p>
       <button (click)="register(name.value,pass.value,pass2.value)">Register</button>
-      <button (click)="login(name.value,pass.value)">Login</button>
+      <button (click) = "login(name.value,pass.value)">Login</button>
       
     </ng-template>

@@ -1,0 +1,37 @@
+<!--called from login-auth.html-->
+<div class ='mainDiv' *ngIf="afAuth.authState | async; let user; else errorNoUserLoggedIn" >
+ 
+     <div style="text-align:left">
+        <input type="text" #query>Enter search term: 
+        <button (click) = "loadImage(query.value)">Search!</button>
+    </div>
+    
+    <div style = "text-align:center">
+        <button routerLink = '/collections'>View my Collections</button>
+    </div>
+    
+    <div style="text-align:right" class="navbar">
+        <button routerLink = '/login' (click) = "logout()">Logout</button>
+    </div>
+    
+    <br>
+    <div style = "column-count:5;" class ='display' *ngFor= "let item of returnFile">
+            <img style="column-count: inherit" id ="imgID" src = {{item}}>
+            <button (click)= "addToCollection(item)">Add to collection</button>
+    </div>
+    
+ 
+
+</div>
+
+ <ng-template #errorNoUserLoggedIn style="text-align:center">
+     There appears to be no one logged in! Go to 
+     <a href = "https://lab5-ammarmz.c9users.io:8080/login">https://lab5-ammarmz.c9users.io:8080/login</a> 
+     to login or register.
+ </ng-template>
+
+
+
+
+
+

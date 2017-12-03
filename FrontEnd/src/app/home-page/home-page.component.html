@@ -1,0 +1,16 @@
+<div style="text-align:center">
+
+<nav [hidden] = aboutHide>
+<h1>About</h1>
+  <p font size = "15px">
+    This website allows users to view the top rated NASA pictures. Users can register and create their own image collection by searching. Registered users can
+    rate other public collections.
+  </p>
+</nav>
+  
+<div [hidden] = aboutHide style="text-align:center">
+  <button routerLink = "/login" routerLinkActive = "active" (click) = "showLoginAuth()">Login/Register</button>
+  
+</div>
+    <app-login-auth [hidden] = loginAuth></app-login-auth>
+</div>

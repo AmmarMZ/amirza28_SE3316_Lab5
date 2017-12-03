@@ -6,4 +6,13 @@
         "changeOrigin": true,
         "logLevel": "info"
     }
+    
+    "/search/*":
+    {
+        "target" : "https://images-api.nasa.gov",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "info"
+    }
+    
 }
