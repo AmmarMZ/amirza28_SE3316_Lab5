@@ -2,7 +2,7 @@ import { BrowserModule }      from '@angular/platform-browser';
 import { NgModule }           from '@angular/core';
 import { HttpClientModule }   from '@angular/common/http';
 import { AngularFireModule }  from 'angularfire2';
-import { ModalModule } from 'angular2-modal';
+;
 
 import { AppComponent } from './app.component';
 import { SampleComponent } from './sample/sample.component';
@@ -14,6 +14,7 @@ import { CollectionsComponent }   from './collections/collections.component'
 
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { ModalModule }  from 'ng2-modal'
 
 
 
@@ -35,6 +36,7 @@ export const firebaseConfig = {
 const appRoutes: Routes = [
   { path:   'login',          component: LoginAuthComponent },
   { path:   'homeScreen',     component: LoginScreenComponent},
+  { path:   'collections',    component: CollectionsComponent },
   { path:   '',               component: HomePageComponent },
   { path:   'collections',    component: CollectionsComponent },
   { path:   '**',             component: ErrorNotFoundComponent},
@@ -52,23 +54,25 @@ const appRoutes: Routes = [
     HomePageComponent,
     ErrorNotFoundComponent,
     CollectionsComponent,
-    PopupComponent
+    PopupComponent,
+    
   ],
   imports: 
   [
      RouterModule.forRoot(
       appRoutes
     ),
-    ModalModule.forRoot(),
     BrowserModule,
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    
-    
+    ModalModule
   ],
   providers: [SampleService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+ 
+
+  
 })
 export class AppModule { }

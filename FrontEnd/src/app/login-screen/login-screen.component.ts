@@ -6,9 +6,11 @@ import * as $ from 'jquery';
 
 import { HttpClient } from '@angular/common/http';
 import { ViewEncapsulation } from '@angular/core';
-
+import { ViewContainerRef} from '@angular/core';
 
 import { AngularFireDatabase } from 'angularfire2/database';
+
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,10 +19,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
   styleUrls: ['./login-screen.component.css'],
    encapsulation: ViewEncapsulation.None
 })
+
 export class LoginScreenComponent implements OnInit {
 
-    constructor(public afAuth: AngularFireAuth, private http : HttpClient, private db: AngularFireDatabase) 
-    {   this.items = db.list('items').valueChanges();}
+    constructor(public afAuth: AngularFireAuth, private http : HttpClient, private db: AngularFireDatabase, private router : Router) 
+    {  }
     items: Observable<any[]>;
     query;
     url;
@@ -79,9 +82,18 @@ export class LoginScreenComponent implements OnInit {
        var email = current.email;
        var key = email.replace('@','AT');
        key = key.replace('.','DOT');
-       var collectionName = 'myFirstCollection/'
+       var collectionName = 'myFirstCollection/';
        this.db.list(key+'/public/'+collectionName).push(event);
-       
- 
   }
+  
+  routeToCollections()
+  {
+      
+      this.router.navigate(['/collections']);
+  }
+  
+  
+ 
+  
+ 
 }

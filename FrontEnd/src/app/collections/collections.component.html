@@ -1,3 +1,6 @@
-<p>
-  collections works!
-</p>
+<div>
+    Name of new collection: <input type ="text" #collectionName>
+    <button (click) = createNewCollection(collectionName.value) >Create!</button>
+    <input type="checkbox" id ="public" #public>public
+    <input type="checkbox" id= "private" #private>private
+</div>

@@ -1,16 +1,16 @@
-<div (click)="onContainerClicked($event)" class="modal fade" tabindex="-1" [ngClass]="{'show': visibleAnimate}"
-       [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <ng-content select=".app-modal-header"></ng-content>
-        </div>
-        <div class="modal-body">
-          <ng-content select=".app-modal-body"></ng-content>
-        </div>
-        <div class="modal-footer">
-          <ng-content select=".app-modal-footer"></ng-content>
-        </div>
-      </div>
-    </div>
-  </div>
+
+<div class="row">
+    <button (click) = "loadFromDb()" (click)="myModal.open()">Add to collection</button>
+    <modal #myModal>
+        <modal-header>
+            <a>Click collection to add to it.</a>
+        </modal-header>
+        <modal-content>
+            <a [hidden] = collectionsExist href = "https://lab5-ammarmz.c9users.io:8080/collections">No collections exist go to Collections to make one</a>
+            <button (click) = "onClick($event,item)" *ngFor= "let item of collectionLinks3"> {{item}}</button>
+        </modal-content>
+        <modal-footer>
+        </modal-footer>
+    </modal>
+</div>
+

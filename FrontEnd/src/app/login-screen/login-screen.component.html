@@ -6,19 +6,19 @@
         <button (click) = "loadImage(query.value)">Search!</button>
     </div>
     
-    <div style = "text-align:center">
-        <button routerLink = '/collections'>View my Collections</button>
-    </div>
+    <div style = "text-align:center" class ="navbar">
+        <button (click) = "routeToCollections()" routerLink = '/collections'>View my Collections</button>
+    </div>    
     
     <div style="text-align:right" class="navbar">
         <button routerLink = '/login' (click) = "logout()">Logout</button>
     </div>
-    
     <br>
     <div style = "column-count:5;" class ='display' *ngFor= "let item of returnFile">
             <img style="column-count: inherit" id ="imgID" src = {{item}}>
-            <button (click)= "addToCollection(item)">Add to collection</button>
+            <app-modal id = {{item}}></app-modal>
     </div>
+    
     
  
 
