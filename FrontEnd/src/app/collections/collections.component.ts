@@ -38,6 +38,8 @@ export class CollectionsComponent implements OnInit {
    path; // used for current colletion path
   hideRating = true;
   collectionsExist = true;
+  
+  fieldToUpdate;
 
   createNewCollection(event) //creates new collection
   {
@@ -164,6 +166,52 @@ export class CollectionsComponent implements OnInit {
               
             }
         });
+  }
+  
+  editDbName(item,newName)
+  {
+  //     var current = this.afAuth.auth.currentUser;
+  //   var email = current.email;
+  //   var key = email.replace('@','AT');
+  //   key = key.replace('.','DOT');
+  //   var privacy;
+    
+    
+  //   for (var i in this.collectionLinks3)
+  //   {
+  //     if (item == this.collectionLinks3[i])
+  //     {
+  //       privacy = this.privArray3[i];
+  //     }
+  //   }
+  
+  // this.fieldToUpdate = item;
+  //       var obj2 = this.db.object(key+privacy+item);
+  //       var toUpdate = this.db.object(key +privacy);
+        
+        
+  }
+  
+  deleteCol(item)
+  {
+    var current = this.afAuth.auth.currentUser;
+    var email = current.email;
+    var key = email.replace('@','AT');
+    key = key.replace('.','DOT');
+    var privacy;
+    
+    
+    for (var i in this.collectionLinks3)
+    {
+      if (item == this.collectionLinks3[i])
+      {
+        privacy = this.privArray3[i];
+      }
+    }
+    
+   
+       
+        var obj2 = this.db.object(key+privacy + item).set(null)
   }
   
   getPublicCollections() //get all public collections for all users and their paths

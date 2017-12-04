@@ -36,7 +36,7 @@ export class HomePageComponent implements OnInit
    pubArray : any[] = [];
     pathArray : any[] = [];
     pubImgArray: any [] = [];
-    path;
+    path; 
    
    getPublicCollections() //get all public collections for all users and their paths
   {

@@ -9,7 +9,7 @@
 <b (click) = 'loadFromDb()'>My Collections:</b>
 <div *ngFor = "let item of collectionLinks3">
     
-    <button (click) = getGallery(item) >{{item}}</button>
+    <button (click) = getGallery(item) >{{item}}</button> <button (click) = deleteCol(item)>Delete</button>
 </div>
 
 <div *ngFor = "let x of imgArray">

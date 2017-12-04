@@ -63,22 +63,10 @@ export class LoginAuthComponent
             var errorCode = error.code;
             var errorMessage = error.message;
             alert(error.code + " " + error.message);
+            this.afAuth.auth.currentUser.sendEmailVerification();
             
-        }).then(
-        (success) => {
-           let user:any = firebase.auth().currentUser;
-           user.sendEmailVerification().then(
-             (success) => {console.log("please verify your email")} 
-           ).catch(
-             (err) => {
-               this.error = err;
-             }
-           )
-
-        }).catch(
-          (err) => {
-            this.error = err;
-          });
+        });
+        
         
       }
       else
