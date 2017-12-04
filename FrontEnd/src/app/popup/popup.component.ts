@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { ElementRef } from '@angular/core';
 
 
+
 @Component({
   selector: 'app-modal',
   templateUrl: './popup.component.html',
@@ -17,16 +18,21 @@ export class PopupComponent implements OnInit
   ngOnInit() 
   {}
   el: ElementRef;
+   item: Observable<any>;
   constructor(private db: AngularFireDatabase,public afAuth: AngularFireAuth, el: ElementRef)
   {
       this.el = el; 
+     
   }
   
    
   collectionLinks : any [] = [];
   collectionLinks2: any [] = [];
   collectionLinks3: any [] = [];
-  tempArray: any [] = [];
+  privArray : any [] = [];
+  privArray2 : any [] = [];
+  privArray3 : any [] = [];
+ 
   collectionsExist = true;
 
   loadFromDb()
@@ -42,10 +48,12 @@ export class PopupComponent implements OnInit
         obj.snapshotChanges().subscribe(action => 
         {
           this.collectionLinks = [];
+          this.privArray = [];
           json = action.payload.val();
             for (var key in json) 
             {
               this.collectionLinks.push(key);
+              this.privArray.push('/public/')
             }
         });
         
@@ -54,32 +62,30 @@ export class PopupComponent implements OnInit
         obj2.snapshotChanges().subscribe(action => 
         {
           this.collectionLinks2 = [];
+          this.privArray2 = [];
           json2 = action.payload.val();
             for (var key in json2) 
             {
               this.collectionLinks2.push(key);
+              this.privArray2.push('/private/')
             }
         });
         
         this.collectionLinks3 = [];
+        this.privArray3 = [];
         for (var i in this.collectionLinks)
         {
           this.collectionLinks3.push(this.collectionLinks[i]);
+          this.privArray3.push(this.privArray[i]);
         }
         
         for (var i in this.collectionLinks2)
         {
           this.collectionLinks3.push(this.collectionLinks2[i]);
+          this.privArray3.push(this.privArray2[i]);
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
+
         
       // for (var key in json) 
       // {
@@ -103,50 +109,25 @@ export class PopupComponent implements OnInit
       var email = current.email;
       var key = email.replace('@','AT');
       var mainKey = key.replace('.','DOT');
+      var privacy;
       
-      
-      
-      
-        var json;
-        var obj = this.db.object(mainKey+'/public/');
-        obj.snapshotChanges().subscribe(action => 
+      for ( var i in this.collectionLinks3)
+      {
+        if (collectionName == this.collectionLinks3[i])
         {
-          this.tempArray = [];
-          json = action.payload.val();
-          var check = false;
-            for (var key in json) 
-            {
-              if(key == collectionName)
-              {
-                check = true;
-              }
-            }
-            if (check)
-            {this.db.list(mainKey + '/public/' + collectionName).push(id);}
-                
-        });
+          privacy = this.privArray3[i];
+          break;
+        }
+      }
+   
+    
+   
+    this.db.list(mainKey + privacy + collectionName).push(id);
+      
+     
+      
         
-        var json2;
-        var obj2 = this.db.object(mainKey+'/private/');
-        obj2.snapshotChanges().subscribe(action => 
-        {
-         this.tempArray = [];
-          json2 = action.payload.val();
-          var check = false;
-            for (var key in json2) 
-            {
-              if(key == collectionName)
-              {
-                check = true;
-                
-              }
-            }
-            if (check)
-            {
-              this.db.list(mainKey + '/private/' + collectionName).push(id);
-            }
-                
-        });
+        
   }
 }
 

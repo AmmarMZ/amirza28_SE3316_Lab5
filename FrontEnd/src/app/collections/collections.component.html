@@ -1,6 +1,40 @@
+<div *ngIf="afAuth.authState | async; let user; else errorNoUserLoggedIn">
 <div>
     Name of new collection: <input type ="text" #collectionName>
     <button (click) = createNewCollection(collectionName.value) >Create!</button>
     <input type="checkbox" id ="public" #public>public
     <input type="checkbox" id= "private" #private>private
 </div>
+
+<b (click) = 'loadFromDb()'>My Collections:</b>
+<div *ngFor = "let item of collectionLinks3">
+    
+    <button (click) = getGallery(item) >{{item}}</button>
+</div>
+
+<div *ngFor = "let x of imgArray">
+    <img src = {{x}}>
+</div>
+
+<div style ="text-align:right">
+ <b (click) = 'getPublicCollections()'>Public Collections:</b>
+<div *ngFor = "let item of pubArray" style ="text-align:right">
+   <button (click) = "loadCollection(item)">{{item}}</button>
+</div>
+<div *ngFor ="let item2 of pubImgArray">
+ <img src = {{item2}}>   
+ 
+</div>
+<br>
+<nav [hidden] = hideRating >
+Rating out of 10: <input type = "number" #rating><button (click) ="rate(rating.value)">Rate!</button>
+</nav>
+
+</div>
+</div>
+
+ <ng-template #errorNoUserLoggedIn style="text-align:center">
+     There appears to be no one logged in! Go to 
+     <a href = "https://lab5-ammarmz.c9users.io:8080/login">https://lab5-ammarmz.c9users.io:8080/login</a> 
+     to login or register.
+ </ng-template>
