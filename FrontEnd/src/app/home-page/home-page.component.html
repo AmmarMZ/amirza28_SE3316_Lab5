@@ -12,5 +12,15 @@
   <button routerLink = "/login" routerLinkActive = "active" (click) = "showLoginAuth()">Login/Register</button>
   
 </div>
-    
+
+<br><br>
+<div style="text-align:center" >
+        <b (click) = 'getPublicCollections()'>Public collections:</b>
+        <div *ngFor = "let item of pubArray" style ="text-align:right">
+       <button (click) = "loadCollection(item)">{{item}}</button>
+    </div>
+    <div *ngFor ="let item2 of pubImgArray">
+     <img src = {{item2}}>   
+ 
+</div>
 </div>
