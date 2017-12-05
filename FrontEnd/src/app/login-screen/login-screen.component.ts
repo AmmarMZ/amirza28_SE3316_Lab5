@@ -24,20 +24,20 @@ export class LoginScreenComponent implements OnInit {
 
     constructor(public afAuth: AngularFireAuth, private http : HttpClient, private db: AngularFireDatabase, private router : Router) 
     {  }
-    items: Observable<any[]>;
-    query;
-    url;
+    items: Observable<any[]>;   
+    query;      //the query
+    url;        //get to nasa API
     returnFile : any [] = []; //stores urls of query
-    counter;
-    fileSize;
-    domCheck = true;
-    count = 0;
+    fileSize;                   //lenght of images returned
+    domCheck = false;            //bool to ensure query is good
+    count = 0;                      //basically a shitty semaphore
+    
     logout() 
-  {
-    this.afAuth.auth.signOut();
-  }
+    {
+        this.afAuth.auth.signOut();
+    }
   
-  loadImage(queryIn)
+  loadImage(queryIn)        //gets all images from the JSON after doing GET to NASA API
   {
     if (queryIn == "")
     {
@@ -64,7 +64,7 @@ export class LoginScreenComponent implements OnInit {
          this.fileSize = data.collection.items.length;
          for(var i = 0; i < data.collection.items.length; i++) 
          {
-            this.returnFile.push(data.collection.items[i].links[0].href);
+            this.returnFile.push(data.collection.items[i].links[0].href);       //send query and get the fruits
          }
       });
     
@@ -75,8 +75,8 @@ export class LoginScreenComponent implements OnInit {
   {
       
   }
-  
-  addToCollection(event)
+    
+  addToCollection(event)            //adds img src to database
   {
        var current = this.afAuth.auth.currentUser;
        var email = current.email;
@@ -86,7 +86,7 @@ export class LoginScreenComponent implements OnInit {
        this.db.list(key+'/public/'+collectionName).push(event);
   }
   
-  routeToCollections()
+  routeToCollections()      
   {
       
       this.router.navigate(['/collections']);

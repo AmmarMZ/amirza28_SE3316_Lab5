@@ -213,7 +213,7 @@ export class CollectionsComponent implements OnInit {
         });
   }
   
-  editDbName(item, newName)
+  editDbName(item, newName) //change collection name
   {
         
  
@@ -238,7 +238,7 @@ export class CollectionsComponent implements OnInit {
         
   }
   
-  deleteCol(item)
+  deleteCol(item) //delete entire collection
   {
     var current = this.afAuth.auth.currentUser;
     var email = current.email;
@@ -260,7 +260,7 @@ export class CollectionsComponent implements OnInit {
         var obj2 = this.db.object(key+privacy + dbName).set(null)
   }
   
-  deleteSrc(item)
+  deleteSrc(item) //delete image from collection
   {
   
     this.db.object(this.path2 +'/'+item).set(null);
@@ -336,7 +336,7 @@ export class CollectionsComponent implements OnInit {
         this.hideRating = false;
   }
   
-  rate(rating, tempCheck = false)
+  rate(rating, tempCheck = false) //rate another users collections
   {
     var check = true;
      var current = this.afAuth.auth.currentUser;

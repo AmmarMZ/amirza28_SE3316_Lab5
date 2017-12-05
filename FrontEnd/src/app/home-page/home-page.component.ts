@@ -33,7 +33,7 @@ export class HomePageComponent implements OnInit
      this.aboutHide = true;
    }
    
-   pubArray : any[] = [];
+   pubArray : any[] = [];       
    tempArray : any [] = [];
     pathArray : any[] = [];
     pubImgArray: any [] = [];
@@ -160,11 +160,4 @@ export class HomePageComponent implements OnInit
         
   }
   
-  nothing()
-  {
-    
-  }
-  
-
-
 }

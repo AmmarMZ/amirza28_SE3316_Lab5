@@ -11,6 +11,8 @@
 <div [hidden] = aboutHide style="text-align:center">
   <button routerLink = "/login" routerLinkActive = "active" (click) = "showLoginAuth()">Login/Register</button>
   
+<!--first page you see when you visit website-->
+
 </div>
 <br>
 
@@ -27,6 +29,8 @@
     </div>
     <div *ngFor ="let item2 of pubImgArray">
      <img src = {{item2}}>   
+     
+     <!--have to click on public colletions for them to appear due to async task that i could not figure out for the life of me-->
  
 </div>
 </div>

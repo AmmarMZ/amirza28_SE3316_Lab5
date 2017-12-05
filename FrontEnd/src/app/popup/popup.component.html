@@ -1,4 +1,6 @@
 
+<!--modal is imported and the code below is basically a modal but it doesnt pop-up but provides functinoality-->
+<!--this modal is used when adding images to your personal collection-->
 <div class="row">
     <button (click) = "loadFromDb()" (click)="myModal.open()">Add to collection</button>
     <modal #myModal>
@@ -6,8 +8,10 @@
             <a>Click collection to add to it.</a>
         </modal-header>
         <modal-content>
+            <!--collectionsExist is a bool var to check if you have any collections created or not-->
             <a [hidden] = collectionsExist href = "https://lab5-ammarmz.c9users.io:8080/collections">No collections exist go to Collections to make one</a>
             <button (click) = "onClick($event,item)" *ngFor= "let item of collectionLinks3"> {{item}}</button>
+            <!--onClick adds the selected image to the users personal collection-->
            
         </modal-content>
         <modal-footer>

@@ -26,10 +26,11 @@ export class LoginAuthComponent
   constructor(public afAuth: AngularFireAuth, private router : Router)
   {
   }
+  
   login(name,pass)
   {
     this.routeCheck = true;
-    this.afAuth.auth.signInWithEmailAndPassword(name,pass).catch(function(error) 
+    this.afAuth.auth.signInWithEmailAndPassword(name,pass).catch(function(error)  //login with google firebase, on succesful login route to homescren
     {
         // Handle Errors here.
         var errorCode = error.code;
@@ -49,8 +50,9 @@ export class LoginAuthComponent
 
         });
   }
-  register(name,pass,pass2)
+  register(name,pass,pass2)   //registering a new user and route to homescreen
   {
+    
     this.passCheck = false;
     
     if(this.regAccess)
@@ -65,9 +67,16 @@ export class LoginAuthComponent
             alert(error.code + " " + error.message);
             this.afAuth.auth.currentUser.sendEmailVerification();
             
+        }).then
+    (
+        (success) => 
+        {
+           if (this.routeCheck)
+          {
+            this.router.navigate(['/homeScreen']);
+          }
         });
-        
-        
+      
       }
       else
       {
@@ -86,6 +95,10 @@ export class LoginAuthComponent
   {
     this.router.navigate(['/homeScreen']);
   }
- 
+  
+  nothin()
+  {
+    
+  }
 }
 

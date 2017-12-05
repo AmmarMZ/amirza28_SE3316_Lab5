@@ -1,23 +1,33 @@
 <!--called from login-auth.html-->
+
+<!--if user is logged in show chunk of html below else show the ng-template-->
 <div class ='mainDiv' *ngIf="afAuth.authState | async; let user; else errorNoUserLoggedIn" >
  
      <div style="text-align:left">
         <input type="text" #query>Enter search term: 
-        <button (click) = "loadImage(query.value)">Search!</button>
+        <button (click) = "loadImage(query.value)">Search!</button> <!-- query stuff -->
     </div>
     
     <div style = "text-align:center" class ="navbar">
         <button (click) = "routeToCollections()" routerLink = '/collections'>View my Collections</button>
     </div>    
+    <!--routes user to view their private and public collections-->
     
     <div style="text-align:right" class="navbar">
         <button routerLink = '/login' (click) = "logout()">Logout</button>
     </div>
+    
+    
     <br>
     <div style = "column-count:5;" class ='display' *ngFor= "let item of returnFile">
             <img style="column-count: inherit" id ="imgID" src = {{item}}>
             <app-modal id = {{item}}></app-modal>
     </div>
+    
+    <!--this waits for the query to be sent, it waits on the array returnFile, once that is updated it shows all the images -->
+    <!--with the custom modal that is used to add an image to a specific collection-->
+    
+    
     
 </div>
 

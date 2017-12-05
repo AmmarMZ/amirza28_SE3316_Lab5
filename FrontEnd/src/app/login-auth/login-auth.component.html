@@ -1,9 +1,13 @@
--
+
+<!--if user is logged in show below div else show ng-template-->
 <div routerLink ='/homeScreen' *ngIf="afAuth.authState | async; let user; else showLogin">
     <button (click) = "routeToHS()">Go back to home screen</button>
      <button (click) = "logout()">Logout?</button>
 </div>
-    <ng-template #showLogin style="text-align:center">
+
+        <!--the login form where users log in or new users register, info is stored in db-->
+    <ng-template #showLogin style="text-align:center">          
+    
         <h1>Welcome to {{ title }}</h1>
     <form id = "logRegForm">
         Username: <input type ="text" name = "uName" #name><br>

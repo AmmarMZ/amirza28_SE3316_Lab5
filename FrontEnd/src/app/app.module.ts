@@ -5,8 +5,6 @@ import { AngularFireModule }  from 'angularfire2';
 ;
 
 import { AppComponent } from './app.component';
-import { SampleComponent } from './sample/sample.component';
-import { SampleService} from './sample/sample.service';
 import { LoginAuthComponent } from './login-auth/login-auth.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ErrorNotFoundComponent } from './error-not-found/error-not-found.component';
@@ -36,7 +34,7 @@ export const firebaseConfig = {
 
 const appRoutes: Routes = [
   { path:   'login',          component: LoginAuthComponent },
-    { path:   'policy',         component: PrivacyPolicyComponent},
+  { path:   'policy',         component: PrivacyPolicyComponent},
   { path:   'homeScreen',     component: LoginScreenComponent},
   { path:   'collections',    component: CollectionsComponent },
   { path:   '',               component: HomePageComponent },
@@ -50,7 +48,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SampleComponent,
     LoginAuthComponent,
     LoginScreenComponent,
     HomePageComponent,
@@ -72,7 +69,7 @@ const appRoutes: Routes = [
     AngularFireDatabaseModule,
     ModalModule
   ],
-  providers: [SampleService],
+  
   bootstrap: [AppComponent],
  
 

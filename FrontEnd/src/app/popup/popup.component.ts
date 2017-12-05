@@ -17,37 +17,36 @@ export class PopupComponent implements OnInit
 {
   ngOnInit() 
   {}
-  el: ElementRef;
-   item: Observable<any>;
+   el: ElementRef;  //not sure what used for but don't want to delete for fear of errors
+   item: Observable<any>; //see above comment
   constructor(private db: AngularFireDatabase,public afAuth: AngularFireAuth, el: ElementRef)
   {
-      this.el = el; 
-     
+      this.el = el; //pretty sure its useless
   }
   
    
-  collectionLinks : any [] = [];
-  collectionLinks2: any [] = [];
-  collectionLinks3: any [] = [];
-  privArray : any [] = [];
-  privArray2 : any [] = [];
-  privArray3 : any [] = [];
-  dbName : any [] = [];
-  dbName2: any [] = [];
-  dbName3: any [] = [];
+  collectionLinks : any [] = [];  //gets references of all public collections
+  collectionLinks2: any [] = [];  //gets references of all private collections
+  collectionLinks3: any [] = [];  //adds above 2 together
+  privArray : any [] = [];        //gets number of public collections
+  privArray2 : any [] = [];       //gets number of private collections
+  privArray3 : any [] = [];       //adds above 2 together
+  dbName : any [] = [];           //gets database key for public collections
+  dbName2: any [] = [];           //gets database key for private collections
+  dbName3: any [] = [];           //adds above 2 together
  
-  collectionsExist = true;
+  collectionsExist = true;        //var to determine if user has any collections or not
 
-  loadFromDb()
+  loadFromDb()        //loads all users collections when they want to add pic to their db
   {
     
     var current = this.afAuth.auth.currentUser;
     var email = current.email;
     var key = email.replace('@','AT');
-    key = key.replace('.','DOT');
+    key = key.replace('.','DOT');         //get user
 
         var json;
-        var obj = this.db.object(key+'/public/');
+        var obj = this.db.object(key+'/public/');   //access db, async task
         obj.snapshotChanges().subscribe(action => 
         {
           this.collectionLinks = [];
@@ -62,7 +61,7 @@ export class PopupComponent implements OnInit
                 if (key2 == 'name')
                 {
                   this.dbName.push(key);
-                  this.collectionLinks.push(temp[key2]);
+                  this.collectionLinks.push(temp[key2]);        //add everything to the arrays
                   this.privArray.push('/public/')
                 }
               }
@@ -71,7 +70,7 @@ export class PopupComponent implements OnInit
             }
         });
         
-        var json2;
+        var json2;                                    //do the same thing as above and get all the private collections
         var obj2 = this.db.object(key+'/private/');
         obj2.snapshotChanges().subscribe(action => 
         {
@@ -96,7 +95,7 @@ export class PopupComponent implements OnInit
             }
         });
         
-        this.collectionLinks3 = [];
+        this.collectionLinks3 = [];           //add everything into one array for easy traversal
         this.privArray3 = [];
         this.dbName3 = [];
         for (var i in this.collectionLinks)
@@ -115,23 +114,14 @@ export class PopupComponent implements OnInit
         
 
         
-      // for (var key in json) 
-      // {
-      //       var item = json[key];
-           
-      //       for (var key2 in item)
-      //       {
-      //         alert(item[key2]);
-      //       }
-      //     }
+
   
   }
   
-  onClick(event, collectionName)
+  onClick(event, collectionName)    //called when adding specific pic to array
   {
-    
       var target = event.currentTarget;
-      var parent = $(target).parent().parent().parent().parent().parent().parent().parent().parent();
+      var parent = $(target).parent().parent().parent().parent().parent().parent().parent().parent(); //get src of image from great great grandmother
       var id = parent.attr('id');
       var current = this.afAuth.auth.currentUser;
       var email = current.email;
@@ -140,7 +130,7 @@ export class PopupComponent implements OnInit
       var privacy;
       var dbName;
       
-      for ( var i in this.collectionLinks3)
+      for ( var i in this.collectionLinks3)         //setting the path correctly to the db
       {
         if (collectionName == this.collectionLinks3[i])
         {
@@ -148,7 +138,7 @@ export class PopupComponent implements OnInit
           dbName = this.dbName3[i];
         }
       }
-      this.db.list(mainKey + privacy + dbName).push(id);
+      this.db.list(mainKey + privacy + dbName).push(id);    //push to db
       
      
       

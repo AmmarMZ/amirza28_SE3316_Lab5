@@ -12,6 +12,8 @@ export class AppComponent
 {
   loginAuth = true;
   public aboutHide = false;
+
+    //abandonded constructor no longer needed, all variables above and below no longer needed for this section
    constructor(public afAuth: AngularFireAuth) {}
    showLoginAuth()
    {
