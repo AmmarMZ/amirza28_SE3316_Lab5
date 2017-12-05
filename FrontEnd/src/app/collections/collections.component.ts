@@ -88,9 +88,12 @@ export class CollectionsComponent implements OnInit {
          key = key.replace('.','DOT');
          var collectionName = event; 
         this.db.object(key+ privacy +collectionName).set(({name:event}));
+        this.db.object(key+ privacy +collectionName +'/rating/' + key).set('0');
+        
         alert("succesfully created collection");
         
       }
+     
   }
   
   loadFromDb() //for loading current users collections
@@ -200,10 +203,11 @@ export class CollectionsComponent implements OnInit {
           json2 = action.payload.val();
             for (var key in json2) 
             {
-              if (key != 'name')
+              if (key != "name" && key != "rating")
               {
-              this.imgArray.push(json2[key]);
-              this.imgArrayKeys.push(key);
+                this.imgArray.push(json2[key]);
+                this.imgArrayKeys.push(key);
+              }
               
             }
         });
@@ -332,7 +336,7 @@ export class CollectionsComponent implements OnInit {
         this.hideRating = false;
   }
   
-  rate(rating)
+  rate(rating, tempCheck = false)
   {
     var check = true;
      var current = this.afAuth.auth.currentUser;
@@ -360,7 +364,7 @@ export class CollectionsComponent implements OnInit {
         check = false;
         alert('Cannot rate own collections');
       }
-    if (check)
+    if (check || tempCheck)
     {
       this.db.object(this.path + '/rating/' + key + '-rating' ).set(rating);
     }
