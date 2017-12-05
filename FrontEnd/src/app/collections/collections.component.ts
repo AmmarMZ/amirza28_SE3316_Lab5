@@ -24,7 +24,9 @@ export class CollectionsComponent implements OnInit {
   {
    
   }
-  
+  dbName : any [] = [];
+  dbName2: any [] = [];
+  dbName3: any [] = [];
   collectionLinks : any [] = [];
   collectionLinks2: any [] = [];
   collectionLinks3: any [] = [];
@@ -36,6 +38,10 @@ export class CollectionsComponent implements OnInit {
    pathArray : any [] = []; //path of public collections
    pubImgArray: any [] = [];  //srcs of public collections
    path; // used for current colletion path
+   path2;
+   pathKey;
+   imgArrayKeys : any [] = [];
+   tempArray1 : any [] = [];
   hideRating = true;
   collectionsExist = true;
   
@@ -43,8 +49,16 @@ export class CollectionsComponent implements OnInit {
 
   createNewCollection(event) //creates new collection
   {
+    
       var check = true;
       var privacy;
+      
+      
+      if (event.length == 0)
+      {
+        alert("No name inputted");
+        check = false;
+      }
       if($('#public').is(':checked'))
       {
         privacy = "/public/";
@@ -64,11 +78,7 @@ export class CollectionsComponent implements OnInit {
         alert("One checkbox must be checked");
         check = false;
       }
-      if ($('#collectionName').val.length == 0)
-      {
-        alert("No name inputted");
-        check = false;
-      }
+     
       
       if (check)
       {
@@ -77,7 +87,7 @@ export class CollectionsComponent implements OnInit {
          var key = email.replace('@','AT');
          key = key.replace('.','DOT');
          var collectionName = event; 
-        this.db.object(key+ privacy +collectionName).set(event);
+        this.db.object(key+ privacy +collectionName).set(({name:event}));
         alert("succesfully created collection");
         
       }
@@ -97,11 +107,22 @@ export class CollectionsComponent implements OnInit {
         {
           this.collectionLinks = [];
           this.privArray = [];
+          this.dbName = [];
           json = action.payload.val();
             for (var key in json) 
             {
-              this.collectionLinks.push(key);
-              this.privArray.push('/public/')
+              var temp = json[key];
+              for (var key2 in temp)
+              {
+                if(key2 == 'name')
+                {
+                  this.dbName.push(key);
+                  this.collectionLinks.push(temp[key2]);
+                  this.privArray.push('/public/')
+                }
+              }
+              // this.collectionLinks.push(key);
+              // this.privArray.push('/public/')
             }
         });
         
@@ -111,26 +132,40 @@ export class CollectionsComponent implements OnInit {
         {
           this.collectionLinks2 = [];
           this.privArray2 = [];
+          this.dbName2 = [];
           json2 = action.payload.val();
             for (var key in json2) 
             {
-              this.collectionLinks2.push(key);
-              this.privArray2.push('/private/')
+               var temp = json2[key];
+               for (var key2 in temp)
+               {
+                 if (key2 == 'name')
+                 {
+                   this.dbName2.push(key);
+                   this.collectionLinks2.push(temp[key2]);
+                   this.privArray2.push('/private/');
+                 }
+               }
+              // this.collectionLinks2.push(key);
+              // this.privArray2.push('/private/')
             }
         });
         
         this.collectionLinks3 = [];
         this.privArray3 = [];
+        this.dbName3 = [];
         for (var i in this.collectionLinks)
         {
           this.collectionLinks3.push(this.collectionLinks[i]);
           this.privArray3.push(this.privArray[i]);
+          this.dbName3.push(this.dbName[i]);
         }
         
         for (var i in this.collectionLinks2)
         {
           this.collectionLinks3.push(this.collectionLinks2[i]);
           this.privArray3.push(this.privArray2[i]);
+          this.dbName3.push(this.dbName2[i]);
         }
         
   }
@@ -143,6 +178,7 @@ export class CollectionsComponent implements OnInit {
     var key = email.replace('@','AT');
     key = key.replace('.','DOT');
     var privacy;
+    var dbName;
     
     
     for (var i in this.collectionLinks3)
@@ -150,45 +186,51 @@ export class CollectionsComponent implements OnInit {
       if (item == this.collectionLinks3[i])
       {
         privacy = this.privArray3[i];
+        dbName = this.dbName3[i];
       }
     }
-    
+       
         var json2;
-        this.imgArray = [];
-        var obj2 = this.db.object(key+privacy + item);
+        this.path2= key+privacy+dbName;
+        var obj2 = this.db.object(key+privacy + dbName);
         obj2.snapshotChanges().subscribe(action => 
         {
-    
+          this.imgArray = [];
+          this.imgArrayKeys = [];
           json2 = action.payload.val();
             for (var key in json2) 
             {
+              if (key != 'name')
+              {
               this.imgArray.push(json2[key]);
+              this.imgArrayKeys.push(key);
               
             }
         });
   }
   
-  editDbName(item,newName)
+  editDbName(item, newName)
   {
-  //     var current = this.afAuth.auth.currentUser;
-  //   var email = current.email;
-  //   var key = email.replace('@','AT');
-  //   key = key.replace('.','DOT');
-  //   var privacy;
-    
-    
-  //   for (var i in this.collectionLinks3)
-  //   {
-  //     if (item == this.collectionLinks3[i])
-  //     {
-  //       privacy = this.privArray3[i];
-  //     }
-  //   }
-  
-  // this.fieldToUpdate = item;
-  //       var obj2 = this.db.object(key+privacy+item);
-  //       var toUpdate = this.db.object(key +privacy);
         
+ 
+      var current = this.afAuth.auth.currentUser;
+      var email = current.email;
+      var key = email.replace('@','AT');
+      key = key.replace('.','DOT');
+      var privacy;
+      var dbName;
+  
+  
+  for (var i in this.collectionLinks3)
+  {
+    if (item == this.collectionLinks3[i])
+      {
+        privacy = this.privArray3[i];
+        dbName = this.dbName3[i];
+      }
+    }
+        
+        this.db.object(key+privacy + dbName+'/name' ).set(newName);
         
   }
   
@@ -199,6 +241,7 @@ export class CollectionsComponent implements OnInit {
     var key = email.replace('@','AT');
     key = key.replace('.','DOT');
     var privacy;
+    var dbName;
     
     
     for (var i in this.collectionLinks3)
@@ -206,12 +249,17 @@ export class CollectionsComponent implements OnInit {
       if (item == this.collectionLinks3[i])
       {
         privacy = this.privArray3[i];
+        dbName = this.dbName3[i];
       }
     }
-    
-   
-       
-        var obj2 = this.db.object(key+privacy + item).set(null)
+  
+        var obj2 = this.db.object(key+privacy + dbName).set(null)
+  }
+  
+  deleteSrc(item)
+  {
+  
+    this.db.object(this.path2 +'/'+item).set(null);
   }
   
   getPublicCollections() //get all public collections for all users and their paths
@@ -222,7 +270,7 @@ export class CollectionsComponent implements OnInit {
         obj2.snapshotChanges().subscribe(action => 
         {
           this.pubArray = [];
-        this.pathArray = [];
+          this.pathArray = [];
             json2 = action.payload.val();
             for (var key in json2) 
             {
@@ -235,8 +283,18 @@ export class CollectionsComponent implements OnInit {
                   {
                     for (var key3 in item2)
                     {
+                      var item3 = item2[key3]
+                      
+                        for (var key4 in item3)
+                        {
+                          if (key4 == 'name')
+                          {
+                            this.pubArray.push(item3[key4]);
+                          }
+                        }
+                      
                       this.pathArray.push(key+"/" + key2 + "/" + key3);
-                      this.pubArray.push(key3);
+                      //this.pubArray.push(key3);
                     }
                   } 
                 }
@@ -277,6 +335,15 @@ export class CollectionsComponent implements OnInit {
   rate(rating)
   {
     var check = true;
+     var current = this.afAuth.auth.currentUser;
+      var email = current.email;
+      var key = email.replace('@','AT');
+      key = key.replace('.','DOT');
+      var tempU = key.substring(0, key.indexOf("DOT"));
+      
+    
+      
+      
     if (rating.length == 0 || rating.length > 2)
     {
       alert('invalid rating');
@@ -287,13 +354,15 @@ export class CollectionsComponent implements OnInit {
       check = false;
       alert('invalid rating');
     }
+    
+     if (tempU == this.path.substring(0,this.path.indexOf("DOT")))
+      {
+        check = false;
+        alert('Cannot rate own collections');
+      }
     if (check)
     {
-      var current = this.afAuth.auth.currentUser;
-      var email = current.email;
-      var key = email.replace('@','AT');
-      key = key.replace('.','DOT');
-      this.db.object(this.path + '/rating/' + key + '-rating:' ).set(rating);
+      this.db.object(this.path + '/rating/' + key + '-rating' ).set(rating);
     }
   }
      
