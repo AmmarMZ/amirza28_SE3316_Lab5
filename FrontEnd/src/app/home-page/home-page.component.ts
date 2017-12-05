@@ -96,5 +96,10 @@ export class HomePageComponent implements OnInit
         });
         
   }
+  
+  nothing()
+  {
+    
+  }
 
 }

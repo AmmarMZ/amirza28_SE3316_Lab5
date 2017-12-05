@@ -9,7 +9,7 @@
 <b (click) = 'loadFromDb()'>My Collections:</b>
 <div *ngFor = "let item of collectionLinks3">
     
-    <button (click) = getGallery(item) >{{item}}</button> <button (click) = deleteCol(item)>Delete</button>
+    <button (click) = getGallery(item) >{{item}}</button> <button (click) = deleteCol(item)>Delete Collection</button>
 </div>
 
 <div *ngFor = "let x of imgArray">
@@ -19,12 +19,17 @@
 <div style ="text-align:right">
  <b (click) = 'getPublicCollections()'>Public Collections:</b>
 <div *ngFor = "let item of pubArray" style ="text-align:right">
-   <button (click) = "loadCollection(item)">{{item}}</button>
+   <button (click) = "loadCollection(item)">{{item}}</button> Rename collection:<input type = "text" #newName><button (click) = "editDbName(newName.value)">Rename!</button>
 </div>
+
 <div *ngFor ="let item2 of pubImgArray">
- <img src = {{item2}}>   
- 
+   
+     <img src = {{item2}} style ="max-width:200px; max-height:200px;">
+     <br>
+     <button (click) = "deleteSrc(item2)">Delete picture {{item2}}</button>
+
 </div>
+
 <br>
 <nav [hidden] = hideRating >
 Rating out of 10: <input type = "number" #rating><button (click) ="rate(rating.value)">Rate!</button>

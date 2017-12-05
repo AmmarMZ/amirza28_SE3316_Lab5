@@ -23,6 +23,7 @@ import { LoginScreenComponent } from './login-screen/login-screen.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { PopupComponent } from './popup/popup.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 export const firebaseConfig = {
  apiKey: "AIzaSyATbZtWfXYtaIU0m-EhPY2xIOfLuKnOHb0",
@@ -35,6 +36,7 @@ export const firebaseConfig = {
 
 const appRoutes: Routes = [
   { path:   'login',          component: LoginAuthComponent },
+    { path:   'policy',         component: PrivacyPolicyComponent},
   { path:   'homeScreen',     component: LoginScreenComponent},
   { path:   'collections',    component: CollectionsComponent },
   { path:   '',               component: HomePageComponent },
@@ -55,6 +57,7 @@ const appRoutes: Routes = [
     ErrorNotFoundComponent,
     CollectionsComponent,
     PopupComponent,
+    PrivacyPolicyComponent,
     
   ],
   imports: 
